@@ -3,7 +3,7 @@ from streamlit_extras.switch_page_button import switch_page
 from PIL import Image
 import glob
 
-@st.cache(suppress_st_warning=True)
+
 def load_img_data():
     # Load the Excel data and create the DataFrame
     guide_img_paths = [Image.open(file) for file in glob.glob('./data/guide/*.png')]
