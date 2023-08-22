@@ -36,10 +36,20 @@ def retrieve_lst(id, db):
     return image_bytes_lst
 
 
-def to_byte_img(uploaded_file):
+def to_byte_img(uploaded_file, target_width=960):
     image = Image.open(uploaded_file)
+     # Get the original width and height
+    original_width, original_height = image.size
+    
+    # Calculate the new height while maintaining the aspect ratio
+    new_height = int((target_width / original_width) * original_height)
+    
+    # Resize the image
+    resized_img = image.resize((target_width, new_height), Image.ANTIALIAS)
+    
+    
     buffered = io.BytesIO()
-    image.save(buffered, format="JPEG")
+    resized_img.save(buffered, format="JPEG")
     byte_image = buffered.getvalue()
     
     return byte_image
@@ -51,7 +61,7 @@ def is_valid_email(email):
     return re.match(pattern, email)
 
 def main():
-    st.set_page_config(page_title="Image Upload", page_icon="📈")
+    st.set_page_config(page_title="Image Upload", page_icon="🧞‍♂️")
 
     st.markdown("# Image Upload")
     st.write("")
@@ -73,7 +83,7 @@ def main():
         byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
         
 
-        if st.button("Send"):
+        if st.button("Ai_snap 데모 신청하기"):
             id, db, result_time = report(email_input, byte_imgs, start_time)
             result_imgs = retrieve_lst(id, db)
             st.success("성공!")
