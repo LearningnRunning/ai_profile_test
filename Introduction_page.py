@@ -7,7 +7,7 @@ import glob
 def load_img_data():
     # Load the Excel data and create the DataFrame
     guide_img_paths = glob.glob('./data/guide/*.png')
-    sorted(guide_img_paths)
+    guide_img_paths = sorted(guide_img_paths)
 #     st.text(guide_img_paths)
     guide_imgs = [Image.open(file) for file in guide_img_paths]
     

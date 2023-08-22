@@ -66,7 +66,7 @@ def main():
     st.markdown("# Image Upload")
     st.write("")
 
-    email_input = st.text_input("이메일을 입력해주세요。")
+    email_input = st.text_input("결과를 받아 볼 이메일을 입력해주세요。")
     st.write("") 
     if email_input:
         if is_valid_email(email_input):
