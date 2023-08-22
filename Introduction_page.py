@@ -26,6 +26,7 @@ def main():
      # st.sidebar.header("Ai Snap Demo")
 
      st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
+     st.text("보내주신 원본 사진은 사용 후 완전 삭제됨을 알려드립니다.")
      st.write("")
      guide_img_paths = load_img_data()
      st.image(guide_img_paths[1])
