@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_extras.switch_page_button import switch_page
 from PIL import Image
 import glob
 
@@ -26,7 +27,7 @@ def main():
      guide_img_paths = load_img_data()
      st.image(guide_img_paths[4])
 
-     st.write("## 사진 업로드 가이드")
+     st.write("## 셀카 사진 업로드 가이드")
      col1, col2 = st.columns(2)
      with col1:
           st.image(guide_img_paths[0],caption='보정이 많이된 사진')
@@ -37,7 +38,9 @@ def main():
           st.image(guide_img_paths[2],caption='이목구비가 다 안 보이는 사진')
      with col2:
           st.image(guide_img_paths[3],caption='이목구비가 틀어진 사진')
-
+     want_to_img_upload = st.button("이미지 업로드하러 가기!")
+     if want_to_img_upload:
+          switch_page("Image_upload_page")
 
 if __name__ == "__main__":
     main()

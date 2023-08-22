@@ -51,36 +51,36 @@ def is_valid_email(email):
     return re.match(pattern, email)
 
 def main():
-     st.set_page_config(page_title="Image Upload", page_icon="📈")
+    st.set_page_config(page_title="Image Upload", page_icon="📈")
 
-     st.markdown("# Image Upload")
-     st.write("")
+    st.markdown("# Image Upload")
+    st.write("")
 
-     email_input = st.text_input("이메일을 입력해주세요。")
-     st.write("") 
-     if email_input:
-          if is_valid_email(email_input):
-               st.success("성공!")
-          else:
-               st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
-     st.write("## 가이드에 맞는 셀카 사진을 입력해주세요。")
-     uploaded_file_1 = st.file_uploader("첫번째", type=["jpg", "jpeg", "png"])
-     uploaded_file_2 = st.file_uploader("두번째", type=["jpg", "jpeg", "png"])
-     uploaded_file_3 = st.file_uploader("세번째", type=["jpg", "jpeg", "png"])
+    email_input = st.text_input("이메일을 입력해주세요。")
+    st.write("") 
+    if email_input:
+        if is_valid_email(email_input):
+            st.success("성공!")
+        else:
+            st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
+    st.write("## 가이드에 맞는 셀카 사진을 입력해주세요。")
+    uploaded_file_1 = st.file_uploader("첫번째", type=["jpg", "jpeg", "png"])
+    uploaded_file_2 = st.file_uploader("두번째", type=["jpg", "jpeg", "png"])
+    uploaded_file_3 = st.file_uploader("세번째", type=["jpg", "jpeg", "png"])
 
-     if uploaded_file_1 and uploaded_file_2 and uploaded_file_3 and email_input:
-          start_time = time()
-          byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
-          
+    if uploaded_file_1 and uploaded_file_2 and uploaded_file_3 and email_input:
+        start_time = time()
+        byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
+        
 
-          if st.button("Send"):
-               id, db, result_time = report(email_input, byte_imgs, start_time)
-               result_imgs = retrieve_lst(id, db)
-               st.success("성공!")
-               st.image(result_imgs[0], channels="BGR")
-               st.image(result_imgs[1], channels="BGR")
-               st.image(result_imgs[2], channels="BGR")
-               st.write(result_time + " 업로드 소요시간")
+        if st.button("Send"):
+            id, db, result_time = report(email_input, byte_imgs, start_time)
+            result_imgs = retrieve_lst(id, db)
+            st.success("성공!")
+            st.image(result_imgs[0], channels="BGR")
+            st.image(result_imgs[1], channels="BGR")
+            st.image(result_imgs[2], channels="BGR")
+            st.write(result_time + " 업로드 소요시간")
                
 
 if __name__ == "__main__":
