@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_extras.grid import grid
 import re
 from google.cloud import firestore
 from time import time
@@ -84,13 +85,26 @@ def main():
         
 
         if st.button("Ai_snap 데모 신청하기"):
-            id, db, result_time = report(email_input, byte_imgs, start_time)
-            result_imgs = retrieve_lst(id, db)
+            with st.spinner('Wait for it...'):
+                id, db, result_time = report(email_input, byte_imgs, start_time)
+                result_imgs = retrieve_lst(id, db)
             st.success("성공!")
-            st.image(result_imgs[0], channels="BGR")
-            st.image(result_imgs[1], channels="BGR")
-            st.image(result_imgs[2], channels="BGR")
+            
+            # Row 1: Display 3 images side by side
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.image(result_imgs[0], channels="BGR")
+            with col2:
+                st.image(result_imgs[1], channels="BGR")
+            with col3:
+                st.image(result_imgs[2], channels="BGR")
+                        
+
             st.write(result_time + " 업로드 소요시간")
+            
+            st.write(f"### 업로드 완료되었습니다! \n #### 작업이 완료되는 대로 빠르게 보내주신 메일({email_input})로 보내드리겠습니다.")
+            st.caption("만약 24시간이 경과 되었는데도 메일이 오지 않았다면 다시 한번 시도해주시길 바랍니다!")
+            st.caption("결과 사진을 메일로 보내드릴 때 구글 폼 링크도 보내드립니다..! 피드백이 저희에게  많은 도움이 됩니다.")
                
 
 if __name__ == "__main__":
