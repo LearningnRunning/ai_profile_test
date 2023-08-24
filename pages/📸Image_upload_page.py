@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_extras.grid import grid
+from streamlit_extras.switch_page_button import switch_page
 import re
 from google.cloud import firestore
 from time import time
@@ -75,6 +75,11 @@ def main():
         else:
             st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
     st.write("## 가이드에 맞는 셀카 사진을 입력해주세요。")
+    want_to_home = st.button("가이드 다시 확인하러 가기!")
+    st.caption("이거 누르면 입력한 내용이 없어집니다! (소노주의)")
+    if want_to_home:
+        switch_page("Introduction_page")
+        
     uploaded_file_1 = st.file_uploader("첫번째", type=["jpg", "jpeg", "png"])
     uploaded_file_2 = st.file_uploader("두번째", type=["jpg", "jpeg", "png"])
     uploaded_file_3 = st.file_uploader("세번째", type=["jpg", "jpeg", "png"])
