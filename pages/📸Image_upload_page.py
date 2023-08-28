@@ -88,7 +88,7 @@ def main():
         start_time = time()
         byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
         # Create a radio button for gender selection
-        gender = st.radio("성별을 골라주세요!:", ("여성", "남성"))
+        gender = st.radio("성별을 골라주세요!", ("여성", "남성"))
 
         # Display a warning message if gender is "Man"
         if gender == "남성":
