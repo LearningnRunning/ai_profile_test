@@ -50,7 +50,15 @@ def to_byte_img(uploaded_file, target_width=960):
     
     
     buffered = io.BytesIO()
-    resized_img.save(buffered, format="JPEG")
+    # Determine the format based on the image mode (PNG or JPEG)
+    image_mode = resized_img.mode
+    if image_mode == "RGBA" or image_mode == "P":
+        save_format = "PNG"
+    else:
+        save_format = "JPEG"
+
+    # Save the resized image in the determined format
+    resized_img.save(buffered, format=save_format)
     byte_image = buffered.getvalue()
     
     return byte_image
@@ -95,7 +103,6 @@ def main():
             st.warning("🥲아쉽게도, 남성 버전은 아직 준비가 안 되었습니다. ")
             st.caption("여자로 태어났다면? 궁금하다면 해도 됩니다.")
         else:
-
             if st.button("Ai_snap 데모 신청하기"):
                 with st.spinner('Wait for it...'):
                     id, db, result_time = report(email_input, byte_imgs, start_time)
