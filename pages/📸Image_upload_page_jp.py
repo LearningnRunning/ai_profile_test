@@ -84,10 +84,12 @@ def main():
             st.warning("メールアドレスの形式が正しくありません。有効なメールアドレスを入力してください。")
     st.write("## ガイドに合った自撮り写真を入力してください。")
     want_to_home = st.button("ガイドを再確認しに行こう")
-    st.caption("これを押すと、入力した内容が消えてしまいます！（怒り注意）")
+    st.caption("これを押すと、入力した内容が消えてしまいます！（注意）")
     if want_to_home:
         switch_page("Introduction_page_jp")
-        
+    
+    st.write("")
+    st.write("### デモに参加するには必ず3枚の写真とメールアドレスを入力してください。 写真が3枚未満の場合、参加ができかねます。")
     uploaded_file_1 = st.file_uploader("最初の", type=["jpg", "jpeg", "png"])
     uploaded_file_2 = st.file_uploader("二番目", type=["jpg", "jpeg", "png"])
     uploaded_file_3 = st.file_uploader("三番目", type=["jpg", "jpeg", "png"])
