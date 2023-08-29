@@ -18,11 +18,11 @@ def load_img_data():
 def main():
      
      st.set_page_config(
-          page_title="Ai Snap Demo", 
+          page_title="Ai 사진 서비스 Demo", 
           page_icon="📸"
           )
 
-     st.markdown("# Ai Snap Demo")
+     st.markdown("# Ai 사진 서비스 Demo")
      # st.sidebar.header("Ai Snap Demo")
 
      st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")

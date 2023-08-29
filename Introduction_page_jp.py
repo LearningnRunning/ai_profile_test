@@ -18,11 +18,11 @@ def load_img_data():
 def main():
      
      st.set_page_config(
-          page_title="Ai Snap Demo", 
+          page_title="AI写真サービス", 
           page_icon="📸"
           )
 
-     st.markdown("# Ai Snap Demo")
+     st.markdown("# AI写真サービス")
      # st.sidebar.header("Ai Snap Demo")
 
      st.write("写真を送っていただければ、メールで写真セットをお送りします！以下は、お送りする写真のサンプルです。")
