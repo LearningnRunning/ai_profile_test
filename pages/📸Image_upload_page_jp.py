@@ -105,7 +105,7 @@ def main():
             st.warning("🥲残念ながら、男性用はまだ準備ができていません。")
             st.caption("女の子として生まれたらどんな姿になるのかが気になる方はどうぞ。")
         else:
-            if st.button("Ai_snap デモを申し込む"):
+            if st.button("Ai photo デモを申し込む"):
                 with st.spinner('Wait for it...'):
                     id, db, result_time = report(email_input, byte_imgs, start_time)
                     result_imgs = retrieve_lst(id, db)

@@ -103,7 +103,7 @@ def main():
             st.warning("🥲아쉽게도, 남성 버전은 아직 준비가 안 되었습니다. ")
             st.caption("여자로 태어났다면? 궁금하다면 해도 됩니다.")
         else:
-            if st.button("Ai_snap 데모 신청하기"):
+            if st.button("Ai 사진 서비스 데모 신청하기"):
                 with st.spinner('Wait for it...'):
                     id, db, result_time = report(email_input, byte_imgs, start_time)
                     result_imgs = retrieve_lst(id, db)
