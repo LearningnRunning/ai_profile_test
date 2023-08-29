@@ -25,19 +25,19 @@ def main():
      st.markdown("# Ai Snap Demo")
      # st.sidebar.header("Ai Snap Demo")
 
-     st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
-     st.text("보내주신 원본 사진은 사용 후 완전 삭제됨을 알려드립니다.")
+     st.write("写真を送っていただければ、メールで写真セットをお送りします！以下は、お送りする写真のサンプルです。")
+     st.text("お送りいただいたオリジナル写真は、使用後に完全に削除されることをお知らせします。")
      st.write("")
      guide_img_paths = load_img_data()
      st.image(guide_img_paths[1])
 
-     st.write("## 셀카 사진 업로드 가이드")
+     st.write("## 自撮り写真アップロードガイド")
 
-     st.image(guide_img_paths[0],caption='보정이 많이된 사진')
+     st.image(guide_img_paths[0],caption='補正が施された写真')
 
-     want_to_img_upload = st.button("이미지 업로드하러 가기!")
+     want_to_img_upload = st.button("画像アップロードへ!")
      if want_to_img_upload:
-          switch_page("Image_upload_page_kr")
+          switch_page("Image_upload_page_jp")
 
 if __name__ == "__main__":
     main()
