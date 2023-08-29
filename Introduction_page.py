@@ -33,7 +33,7 @@ def main():
 
      st.write("## 셀카 사진 업로드 가이드")
 
-     st.image(guide_img_paths[0],caption='보정이 많이된 사진')
+     st.image(guide_img_paths[0])
 
      want_to_img_upload = st.button("이미지 업로드하러 가기!")
      if want_to_img_upload:
