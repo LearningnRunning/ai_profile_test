@@ -21,7 +21,8 @@ def report(e_mail, img_lst, start):
         'selfie_img_1': img_lst[0],
         'selfie_img_2': img_lst[1],
         'selfie_img_3': img_lst[2],
-        'datetime': datetime.now()
+        'datetime': datetime.now(),
+        'region' : 'kr'
         }
     
     # Create a reference to the Google post.
