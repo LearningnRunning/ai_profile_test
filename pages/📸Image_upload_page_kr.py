@@ -127,7 +127,7 @@ def main():
                     st.write(f"### 업로드 완료되었습니다! \n #### 작업이 완료되는 대로 빠르게 보내주신 메일({email_input})로 보내드리겠습니다.")
                     st.caption("만약 24시간이 경과 되었는데도 메일이 오지 않았다면 다시 한번 시도해주시길 바랍니다!")
                     st.caption("결과 사진을 메일로 보내드릴 때 구글 폼 링크도 보내드립니다..! 피드백이 저희에게  많은 도움이 됩니다.")
-    else:
+    elif secret_door:
         st.warning("No muggles allowed🚷")
 
 if __name__ == "__main__":
