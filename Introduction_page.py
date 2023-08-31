@@ -49,9 +49,9 @@ def main():
 
     # st.image(guide_img_paths[0])
 
-    # want_to_img_upload = st.button("이미지 업로드하러 가기!")
-    # if want_to_img_upload:
-    #     switch_page("Image_upload_page_kr")
+    want_to_img_upload = st.button("Thank you!")
+    if want_to_img_upload:
+        switch_page("Image_upload_page_kr")
 
 if __name__ == "__main__":
     main()
