@@ -73,60 +73,60 @@ def is_valid_email(email):
 def main():
     st.set_page_config(page_title="Image_Upload_jp", page_icon="🧞‍♂️")
 
-    st.markdown("# Image Upload")
-    st.write("")
+    # st.markdown("# Image Upload")
+    # st.write("")
 
-    email_input = st.text_input("結果を受け取るメールアドレスを入力してください。")
-    st.write("") 
-    if email_input:
-        if is_valid_email(email_input):
-            st.success("成功!")
-        else:
-            st.warning("メールアドレスの形式が正しくありません。有効なメールアドレスを入力してください。")
-    st.write("## ガイドに合った自撮り写真を入力してください。")
-    want_to_home = st.button("ガイドを再確認しに行こう")
-    st.caption("これを押すと、入力した内容が消えてしまいます！（注意）")
-    if want_to_home:
-        switch_page("Introduction_page_jp")
+    # email_input = st.text_input("結果を受け取るメールアドレスを入力してください。")
+    # st.write("") 
+    # if email_input:
+    #     if is_valid_email(email_input):
+    #         st.success("成功!")
+    #     else:
+    #         st.warning("メールアドレスの形式が正しくありません。有効なメールアドレスを入力してください。")
+    # st.write("## ガイドに合った自撮り写真を入力してください。")
+    # want_to_home = st.button("ガイドを再確認しに行こう")
+    # st.caption("これを押すと、入力した内容が消えてしまいます！（注意）")
+    # if want_to_home:
+    #     switch_page("Introduction_page_jp")
     
-    st.write("")
-    st.write("### デモに参加するには必ず3枚の写真とメールアドレスを入力してください。 写真が3枚未満の場合、参加ができかねます。")
-    uploaded_file_1 = st.file_uploader("最初の", type=["jpg", "jpeg", "png"])
-    uploaded_file_2 = st.file_uploader("二番目", type=["jpg", "jpeg", "png"])
-    uploaded_file_3 = st.file_uploader("三番目", type=["jpg", "jpeg", "png"])
+    # st.write("")
+    # st.write("### デモに参加するには必ず3枚の写真とメールアドレスを入力してください。 写真が3枚未満の場合、参加ができかねます。")
+    # uploaded_file_1 = st.file_uploader("最初の", type=["jpg", "jpeg", "png"])
+    # uploaded_file_2 = st.file_uploader("二番目", type=["jpg", "jpeg", "png"])
+    # uploaded_file_3 = st.file_uploader("三番目", type=["jpg", "jpeg", "png"])
 
-    if uploaded_file_1 and uploaded_file_2 and uploaded_file_3 and email_input:
-        start_time = time()
-        byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
-        # Create a radio button for gender selection
-        gender = st.radio("性別を選んでください!", ("女性", "男性"))
+    # if uploaded_file_1 and uploaded_file_2 and uploaded_file_3 and email_input:
+    #     start_time = time()
+    #     byte_imgs = [to_byte_img(file) for file in [uploaded_file_1, uploaded_file_2, uploaded_file_3]]
+    #     # Create a radio button for gender selection
+    #     gender = st.radio("性別を選んでください!", ("女性", "男性"))
 
-        # Display a warning message if gender is "Man"
-        if gender == "男性":
-            st.warning("🥲残念ながら、男性用はまだ準備ができていません。")
-            st.caption("女の子として生まれたらどんな姿になるのかが気になる方はどうぞ。")
-        else:
-            if st.button("Ai photo デモを申し込む"):
-                with st.spinner('Wait for it...'):
-                    id, db, result_time = report(email_input, byte_imgs, start_time)
-                    result_imgs = retrieve_lst(id, db)
-                st.success("成功!")
+    #     # Display a warning message if gender is "Man"
+    #     if gender == "男性":
+    #         st.warning("🥲残念ながら、男性用はまだ準備ができていません。")
+    #         st.caption("女の子として生まれたらどんな姿になるのかが気になる方はどうぞ。")
+    #     else:
+    #         if st.button("Ai photo デモを申し込む"):
+    #             with st.spinner('Wait for it...'):
+    #                 id, db, result_time = report(email_input, byte_imgs, start_time)
+    #                 result_imgs = retrieve_lst(id, db)
+    #             st.success("成功!")
                 
-                # Row 1: Display 3 images side by side
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.image(result_imgs[0], channels="BGR")
-                with col2:
-                    st.image(result_imgs[1], channels="BGR")
-                with col3:
-                    st.image(result_imgs[2], channels="BGR")
+    #             # Row 1: Display 3 images side by side
+    #             col1, col2, col3 = st.columns(3)
+    #             with col1:
+    #                 st.image(result_imgs[0], channels="BGR")
+    #             with col2:
+    #                 st.image(result_imgs[1], channels="BGR")
+    #             with col3:
+    #                 st.image(result_imgs[2], channels="BGR")
                             
 
-                st.write(result_time + " 업로드 소요시간")
+    #             st.write(result_time + " 업로드 소요시간")
                 
-                st.write(f"### アップロードが完了しました! \n #### 作業が完了次第、すぐにお送りいただいたメール({email_input})にお送りします。")
-                st.caption("もし24時間経過してもメールが届かない場合は、もう一度お試しください！")
-                st.caption("結果写真をメールでお送りする際に、Googleフォームのリンクもお送りします...！？フィードバックは私たちにとって大きな助けになります。")
+    #             st.write(f"### アップロードが完了しました! \n #### 作業が完了次第、すぐにお送りいただいたメール({email_input})にお送りします。")
+    #             st.caption("もし24時間経過してもメールが届かない場合は、もう一度お試しください！")
+    #             st.caption("結果写真をメールでお送りする際に、Googleフォームのリンクもお送りします...！？フィードバックは私たちにとって大きな助けになります。")
                 
 
 if __name__ == "__main__":
