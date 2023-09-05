@@ -21,9 +21,9 @@ def report(e_mail, img_lst, start):
         'selfie_img_1': img_lst[0],
         'selfie_img_2': img_lst[1],
         'selfie_img_3': img_lst[2],
-        'datetime': datetime.now(),
-        'processing_completed' : False,
-        'in_progress' : False,
+        'createdAt': datetime.now(),
+        'finishedAt': None,  # Represent finishedAt as null
+        'pickedAt': None,    # Represent pickedAt as null
         'region' : 'kr'
         }
     
