@@ -34,7 +34,7 @@ def report(e_mail, img_lst, start):
 
 
 def retrieve_lst(id, db):
-    doc_ref = db.collection('test_img').document(id)
+    doc_ref = db.collection('ai_snap_night').document(id)
     doc = doc_ref.get().to_dict()
     image_bytes_lst = [doc[f'selfie_img_{idx}'] for idx in range(1,4) ]
     return image_bytes_lst
