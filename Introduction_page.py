@@ -36,9 +36,10 @@ def main():
     ELINHA Co., Ltd
     """
     guide_img_paths = load_img_data()
+    st.empty()
+
     st.markdown("# Ai snap night ver.")
     st.image(guide_img_paths[0])
-    
     # st.sidebar.header("Ai Snap Demo")
     st.markdown(word_txt)
     # st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
