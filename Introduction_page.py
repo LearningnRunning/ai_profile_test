@@ -53,7 +53,7 @@ def main():
 
     # st.image(guide_img_paths[0])
 
-    want_to_img_upload = st.button("신청하기😀")
+    want_to_img_upload = st.button("😀😀😀😀😀😀신청하기😀😀😀😀🤓😀")
     if want_to_img_upload:
         switch_page("Image_upload_page_kr")
 
