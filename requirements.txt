@@ -1,6 +1,4 @@
 streamlit==1.19.0
-google-auth-oauthlib==0.4.6
-google-cloud-firestore==2.3.4
 Pillow==9.4.0
 streamlit-extras==0.3.0
 firebase_admin==6.2.0
