@@ -2,7 +2,6 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 import re
 # from google.cloud import firestore
-from google.oauth2 import service_account
 from firebase_admin import credentials, initialize_app, firestore
 from time import time
 from datetime import datetime
