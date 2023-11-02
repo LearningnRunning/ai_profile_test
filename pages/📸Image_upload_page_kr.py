@@ -1,20 +1,21 @@
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 import re
-from google.cloud import firestore
+# from google.cloud import firestore
+from google.oauth2 import service_account
+from firebase_admin import credentials, initialize_app, firestore
 from time import time
 from datetime import datetime
 from PIL import Image
 import io
-from google.oauth2 import service_account
 import json
 
 
-def report(e_mail, img_lst, start):
-    # Authenticate to Firestore with the JSON account key.
-    key_dict = json.loads(st.secrets['textkey'])
-    creds = service_account.Credentials.from_service_account_info(key_dict)
-    db = firestore.Client(credentials=creds)
+def report(e_mail, img_lst, start, firebase_app):    
+    # creds = service_account.Credentials.from_service_account_info(key_dict)
+    db = firestore.client(app=firebase_app)
+    
+    
     result_time = f"{time() - start:.4f}"
     data = {
         'e_mail': e_mail,
@@ -28,7 +29,7 @@ def report(e_mail, img_lst, start):
         }
     
     # Create a reference to the Google post.
-    doc_ref = db.collection('test_img').add(data)
+    doc_ref = db.collection('ai_snap_night').add(data)
 
     return doc_ref[1].id, db, result_time
 
@@ -66,6 +67,13 @@ def to_byte_img(uploaded_file, target_width=960):
     
     return byte_image
 
+@st.cache(allow_output_mutation=True)
+def load_app(key_dict):
+    # file_path = '/Users/seongrok.kim/Github/Ai_snap/ai-snap-ff5fb-firebase-adminsdk-1nb7f-114b10efad.json'
+    creds = credentials.Certificate(key_dict)
+    firebase_app = initialize_app(creds, name='learningnRunning')
+    return firebase_app
+
 @st.cache
 def is_valid_email(email):
     # Regular expression to validate email format
@@ -79,7 +87,10 @@ def main():
     #     st.success("Merlin's beard!")
     #     st.markdown("# Image Upload")
     #     st.write("")
-
+    key_dict = json.loads(st.secrets['firebase_auth_token'])
+    firebase_app = load_app(key_dict)
+    
+    
     email_input = st.text_input("결과를 받아 볼 이메일을 입력해주세요。")
     st.write("") 
     if email_input:
@@ -108,9 +119,9 @@ def main():
             st.warning("🥲아쉽게도, 남성 버전은 아직 준비가 안 되었습니다. ")
             st.caption("여자로 태어났다면? 궁금하다면 해도 됩니다.")
         else:
-            if st.button("Ai 사진 서비스 데모 신청하기"):
+            if st.button("사진 업로드📬"):
                 with st.spinner('Wait for it...'):
-                    id, db, result_time = report(email_input, byte_imgs, start_time)
+                    id, db, result_time = report(email_input, byte_imgs, start_time, firebase_app)
                     result_imgs = retrieve_lst(id, db)
                 st.success("성공!")
                 
