@@ -37,8 +37,8 @@ def main():
     """
     guide_img_paths = load_img_data()
     st.empty()
-
-    st.markdown("# Ai snap night ver.")
+    
+    st.markdown("# Ai Snap MOONLIGHT")
     st.image(guide_img_paths[0])
     # st.sidebar.header("Ai Snap Demo")
     st.markdown(word_txt)
