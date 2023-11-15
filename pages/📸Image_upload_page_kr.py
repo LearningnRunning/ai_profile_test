@@ -10,7 +10,7 @@ import io
 import json
 
 
-def report(e_mail, img_lst, start, firebase_app):    
+def report(e_mail, img_lst, selected_palette, start, firebase_app):    
     # creds = service_account.Credentials.from_service_account_info(key_dict)
     db = firestore.client(app=firebase_app)
     
@@ -18,6 +18,7 @@ def report(e_mail, img_lst, start, firebase_app):
     result_time = f"{time() - start:.4f}"
     data = {
         'e_mail': e_mail,
+        "selected_palette" : selected_palette,
         'selfie_img_1': img_lst[0],
         'selfie_img_2': img_lst[1],
         'selfie_img_3': img_lst[2],
@@ -118,9 +119,13 @@ def main():
             st.warning("🥲아쉽게도, 남성 버전은 아직 준비가 안 되었습니다. ")
             st.caption("여자로 태어났다면? 궁금하다면 해도 됩니다.")
         else:
+            selected_palette = st.selectbox("받아보실 팔레트를 선택해주세요.", ["night_snap", "christmas_snap", "tennis_snap"])
+            if selected_palette:
+                selected_palette_path = f'./data/guide/palette_ex_img/{selected_palette}_ex.png'
+                st.image(selected_palette_path, channels="BGR", width=500)
             if st.button("사진 업로드📬"):
                 with st.spinner('Wait for it...'):
-                    id, db, result_time = report(email_input, byte_imgs, start_time, firebase_app)
+                    id, db, result_time = report(email_input, byte_imgs, selected_palette, start_time, firebase_app)
                     result_imgs = retrieve_lst(id, db)
                 st.success("성공!")
                 
