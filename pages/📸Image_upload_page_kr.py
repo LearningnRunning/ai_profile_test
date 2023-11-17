@@ -95,7 +95,7 @@ def main():
     st.write("") 
     if email_input:
         if is_valid_email(email_input):
-            st.success("성공!")
+            st.success("이메일 입력완료")
         else:
             st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
     st.write("## 가이드에 맞는 셀카 사진을 입력해주세요。")
