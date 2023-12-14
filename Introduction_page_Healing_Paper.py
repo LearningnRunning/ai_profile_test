@@ -126,7 +126,7 @@ def main():
     # st.image(guide_img_paths[0])
     
     key_dict = json.loads(st.secrets['firebase_auth_token'])
-    firebase_app = load_app(key_dict)
+    # firebase_app = load_app(key_dict)
 
     st.write(" ## 아래 정보를 입력해주세요.")
     
