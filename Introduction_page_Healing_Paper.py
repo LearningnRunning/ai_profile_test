@@ -76,11 +76,17 @@ def load_app(key_dict):
     firebase_app = initialize_app(creds, name='learningnRunning')
     return firebase_app
 
-@st.cache
+# Define a custom hash function for re.Match
+def my_hash_func(match_obj):
+    return hash((match_obj.span(), match_obj.group()))
+
+@st.cache(hash_funcs={re.Match: my_hash_func})
 def is_valid_email(email):
     # Regular expression to validate email format
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email)
+
+
 
 
 def load_img_data():
@@ -134,7 +140,7 @@ def main():
     st.write("") 
     if email_input:
         if is_valid_email(email_input):
-            st.success("이메일 입력완료")
+            st.success("이메일 입력 완료")
         else:
             st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
 
@@ -185,7 +191,7 @@ def main():
 if __name__ == "__main__":
     
     st.set_page_config(
-        page_title="내가 연애 프로그램 출연자라면?", 
+        page_title="AI ROMANCE", 
         page_icon="📸"
         )
     
