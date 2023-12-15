@@ -97,13 +97,9 @@ def load_img_data():
 def main():
 
     
-    st.set_page_config(
-        page_title="내가 연애 프로그램 출연자라면?", 
-        page_icon="📸"
-        )
     
-    key_dict = json.loads(st.secrets['firebase_auth_token'])
-    firebase_app = load_app(key_dict)
+    
+
     
     word_txt = """
     ### 안녕하세요,
@@ -187,4 +183,13 @@ def main():
                 
 
 if __name__ == "__main__":
+    
+    st.set_page_config(
+        page_title="내가 연애 프로그램 출연자라면?", 
+        page_icon="📸"
+        )
+    
+    key_dict = json.loads(st.secrets['firebase_auth_token'])
+    firebase_app = load_app(key_dict)
+    
     main()
