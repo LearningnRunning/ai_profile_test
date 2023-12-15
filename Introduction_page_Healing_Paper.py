@@ -1,5 +1,6 @@
 import streamlit as st
-from streamlit_extras.switch_page_button import switch_page
+import random
+# from streamlit_extras.switch_page_button import switch_page
 from PIL import Image
 import glob
 import re
@@ -13,6 +14,8 @@ import json
 
 
 def report(e_mail, img_lst, selected_palette, start, firebase_app):    
+    
+    
     # creds = service_account.Credentials.from_service_account_info(key_dict)
     db = firestore.client(app=firebase_app)
     
@@ -86,7 +89,11 @@ def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email)
 
-
+def center_image(image_path):
+    st.markdown(
+        f'<div style="display: flex; justify-content: center;"><img src="{image_path}" style="width: auto; max-width: 100%;" alt="Centered Image"></div>',
+        unsafe_allow_html=True
+    )
 
 
 def load_img_data():
@@ -108,16 +115,24 @@ def main():
 
     
     word_txt = """
-    ### 안녕하세요,
-    연애 프로그램 속 내 모습을 AI 사진으로 만들어보세요! \n
-    \n
-    정면에 홀로 나온 사진을 입력해주세요! (증명사진이 제일 좋아요!) \n
+    ### 안녕하세요 :)
+    연애 프로그램 속 내 모습을 AI 사진으로 만들어보세요!
     """
     # guide_img_paths = load_img_data()
     st.empty()
     
     st.markdown("# 내가 연애 프로그램 출연자라면?")
-    st.image("./data/guide/gif_test_27.gif", output_format='auto')
+    # Example usage
+    gif_img_paths = [['lee_hyori_27', "거꾸로해도 이효리"], ['solo_seugi_27', "솔로지옥2 슬기"], ['imsolo_youngsuk_27', "나는SOLO 16기 영숙"]]
+
+    # Randomly select an item from the list
+    gif_img_path = random.choice(gif_img_paths)
+
+    # Construct the full path to the selected GIF image
+    gif_selected_img_path = f"./data/guide/{gif_img_path[0]}.gif"
+
+    st.image(gif_selected_img_path, caption=gif_img_path[1])
+    # center_image(gif_img_path)
     # st.sidebar.header("Ai Snap Demo")
     st.markdown(word_txt)
     # st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
@@ -127,14 +142,18 @@ def main():
     
     
     # st.image(guide_img_paths[1])
-
-    # st.write("## 셀카 사진 업로드 가이드")
-
-    # st.image(guide_img_paths[0])
+    st.write("")
+    st.write("#### 📢 사진 업로드 가이드")
+    st.write("정면에 홀로 나온 사진을 입력해주세요! (증명사진이 제일 좋아요!)")
+    guide_img_path = "./data/guide/no_photo.jpg"
+    st.image(guide_img_path, width= 500)
     
 
-
-    st.write(" ## 아래 정보를 입력해주세요.")
+    st.write("")
+    st.write("")
+    st.write("")
+    
+    st.write("##### 아래의 정보를 입력해주시면 AI 로맨스 사진을 보내드리겠습니다.")
     
     email_input = st.text_input("결과를 받아 볼 이메일을 입력해주세요。")
     st.write("") 
@@ -197,5 +216,6 @@ if __name__ == "__main__":
     
     key_dict = json.loads(st.secrets['firebase_auth_token'])
     firebase_app = load_app(key_dict)
+    
     
     main()
