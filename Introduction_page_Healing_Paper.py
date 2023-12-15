@@ -95,11 +95,16 @@ def load_img_data():
 
 
 def main():
-     
+
+    
     st.set_page_config(
         page_title="내가 연애 프로그램 출연자라면?", 
         page_icon="📸"
         )
+    
+    key_dict = json.loads(st.secrets['firebase_auth_token'])
+    firebase_app = load_app(key_dict)
+    
     word_txt = """
     ### 안녕하세요,
     연애 프로그램 속 내 모습을 AI 사진으로 만들어보세요! \n
@@ -110,7 +115,7 @@ def main():
     st.empty()
     
     st.markdown("# 내가 연애 프로그램 출연자라면?")
-    st.image("/Users/seongrok.kim/Github/ai_profile_test/data/guide/gif_test_27.gif")
+    st.image("/Users/seongrok.kim/Github/ai_profile_test/data/guide/gif_test_27.gif", output_format='auto')
     # st.sidebar.header("Ai Snap Demo")
     st.markdown(word_txt)
     # st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
@@ -125,8 +130,7 @@ def main():
 
     # st.image(guide_img_paths[0])
     
-    key_dict = json.loads(st.secrets['firebase_auth_token'])
-    # firebase_app = load_app(key_dict)
+
 
     st.write(" ## 아래 정보를 입력해주세요.")
     
