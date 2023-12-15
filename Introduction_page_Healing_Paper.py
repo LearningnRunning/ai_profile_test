@@ -12,10 +12,30 @@ from PIL import Image
 import io
 import json
 
+def resize_and_compress_image(image_bytes, max_size=1048487):
+    # Resize image if the size exceeds the maximum allowed size
+    img = Image.open(io.BytesIO(image_bytes))
+    
+    while len(image_bytes) > max_size:
+        print(f"이미지크기초과 : {len(image_bytes)}")
+        # Calculate new dimensions while maintaining aspect ratio
+        aspect_ratio = img.width / img.height
+        new_width = int((max_size * aspect_ratio)**0.5)
+        new_height = int(max_size**0.5 / aspect_ratio)
+        
+        # Resize the image
+        img = img.resize((new_width, new_height))
+        
+        # Convert the image back to bytes (compressed JPEG format)
+        output_buffer = io.BytesIO()
+        img.save(output_buffer, format='JPEG', quality=85)  # Adjust quality as needed
+        image_bytes = output_buffer.getvalue()
+    
+    return image_bytes
 
 def report(e_mail, img_lst, selected_palette, start, firebase_app):    
     
-    
+    # img_lst = [resize_and_compress_image(img) for img in img_lst]
     # creds = service_account.Credentials.from_service_account_info(key_dict)
     db = firestore.client(app=firebase_app)
     
@@ -46,29 +66,40 @@ def retrieve_lst(id, db):
     return image_bytes_lst
 
 
-def to_byte_img(uploaded_file, target_width=960):
+def to_byte_img(uploaded_file, max_size=1048576, target_width=640):
+    # Open the uploaded image file
     image = Image.open(uploaded_file)
-     # Get the original width and height
-    original_width, original_height = image.size
     
     # Calculate the new height while maintaining the aspect ratio
+    original_width, original_height = image.size
     new_height = int((target_width / original_width) * original_height)
     
-    # Resize the image
-    resized_img = image.resize((target_width, new_height), Image.ANTIALIAS)
+    # Resize and downsample the image
+    factor = 2.0
+    resized_img = image.resize((target_width, new_height), Image.ANTIALIAS).reduce(int(factor))
     
-    
-    buffered = io.BytesIO()
-    # Determine the format based on the image mode (PNG or JPEG)
-    image_mode = resized_img.mode
-    if image_mode == "RGBA" or image_mode == "P":
-        save_format = "PNG"
-    else:
-        save_format = "JPEG"
+    # Compress the image until it meets the size requirement
+    while True:
+        buffered = io.BytesIO()
+        # Determine the format based on the image mode (PNG or JPEG)
+        image_mode = resized_img.mode
+        if image_mode == "RGBA" or image_mode == "P":
+            save_format = "PNG"
+        else:
+            save_format = "JPEG"
 
-    # Save the resized image in the determined format
-    resized_img.save(buffered, format=save_format)
-    byte_image = buffered.getvalue()
+        # Save the resized image in the determined format
+        resized_img.save(buffered, format=save_format, quality=70)  # Adjust quality as needed
+        byte_image = buffered.getvalue()
+
+        # Check if the size is within the limit
+        if len(byte_image) <= max_size:
+            break
+        
+        # Resize the image further if it still exceeds the limit
+        target_width = int(target_width * 0.8)
+        new_height = int((target_width / original_width) * original_height)
+        resized_img = image.resize((target_width, new_height), Image.ANTIALIAS).reduce(int(factor))
     
     return byte_image
 
@@ -108,11 +139,6 @@ def load_img_data():
 
 
 def main():
-
-    
-    
-    
-
     
     word_txt = """
     ### 안녕하세요 :)
@@ -185,6 +211,7 @@ def main():
                 st.image(selected_palette_path, channels="BGR", width=500)
             if st.button("사진 업로드📬"):
                 with st.spinner('Wait for it...'):
+                    # byte_imgs = [resize_and_compress_image(img) for img in byte_imgs]
                     id, db, result_time = report(email_input, byte_imgs, selected_palette, start_time, firebase_app)
                     result_imgs = retrieve_lst(id, db)
                 st.success("성공!")
