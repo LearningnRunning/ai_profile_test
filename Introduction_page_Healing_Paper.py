@@ -111,7 +111,7 @@ def main():
     st.empty()
     
     st.markdown("# 내가 연애 프로그램 출연자라면?")
-    st.image("/Users/seongrok.kim/Github/ai_profile_test/data/guide/gif_test_27.gif", output_format='auto')
+    st.image("./data/guide/gif_test_27.gif", output_format='auto')
     # st.sidebar.header("Ai Snap Demo")
     st.markdown(word_txt)
     # st.write("사진을 보내주시면, 이메일로 사진 세트를 보내드립니다! 아래는 받아보실 사진의 샘플입니다.")
