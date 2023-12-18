@@ -238,7 +238,7 @@ if __name__ == "__main__":
     
     st.set_page_config(
         page_title="AI ROMANCE", 
-        page_icon="📸"
+        page_icon="💖"
         )
     
     key_dict = json.loads(st.secrets['firebase_auth_token'])
