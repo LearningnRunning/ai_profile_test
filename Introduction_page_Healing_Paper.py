@@ -182,10 +182,17 @@ def main():
     st.write("##### 아래의 정보를 입력해주시면 AI 로맨스 사진을 보내드리겠습니다.")
     
     email_input = st.text_input("결과를 받아 볼 이메일을 입력해주세요。")
+    
+    
     st.write("") 
     if email_input:
         if is_valid_email(email_input):
             st.success("이메일 입력 완료")
+            daum_check = email_input.split("@")[-1]
+            if daum_check in ['daum.net', 'hanmail.net']:
+                st.warning("단, 다음과  한메일은 스팸메일함으로 전송될 수 있습니다.")
+                
+            
         else:
             st.warning("잘못된 이메일 형식입니다. 유효한 이메일 주소를 입력하세요.")
 
