@@ -54,13 +54,13 @@ def report(e_mail, img_lst, selected_palette, start, firebase_app):
         }
     
     # Create a reference to the Google post.
-    doc_ref = db.collection('ai_snap_night').add(data)
+    doc_ref = db.collection('ai_romance').add(data)
 
     return doc_ref[1].id, db, result_time
 
 
 def retrieve_lst(id, db):
-    doc_ref = db.collection('ai_snap_night').document(id)
+    doc_ref = db.collection('ai_romance').document(id)
     doc = doc_ref.get().to_dict()
     image_bytes_lst = [doc[f'selfie_img_{idx}'] for idx in range(1,4) ]
     return image_bytes_lst
